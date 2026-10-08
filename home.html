@@ -24,7 +24,7 @@
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { movies: movieData.map(movie => Object.assign({}, movie)) };
+        this.state = { movies: movieData };
         this.saveChanges = this.saveChanges.bind(this);
     }
 
@@ -45,7 +45,7 @@ class App extends React.Component {
                 <div className="column is-half">
 
                         {this.state.movies.map((movie, index) => (
-                            <MovieForm key={movie.id} movie={movie} index={index}
+                            <MovieForm movie={movie} index={index} key={movie.id}
                                 saveChanges={this.saveChanges} />
                         ))}
                 </div>
@@ -73,38 +73,36 @@ class MovieForm extends React.Component {
     }
 
     render() {
-        const movie = this.props.movie;
         return (
-            <form className="panel has-background-grey-lighter"
-                onSubmit={event => event.preventDefault()}>
+            <form className="panel has-background-grey-lighter"  >
 
                 <div className="field is-horizontal">
                     <div className="field-label is-normal">
-                        <label className="label" htmlFor={"title-" + movie.id}>Title</label>
+                        <label className="label">Title</label>
                     </div>
                     <div className="field-body">
-                        <input className="input" type="text" name="title" id={"title-" + movie.id}
-                            value={movie.title} onChange={this.handleChange} />
+                        <input className="input" type="text" name="title"
+                            value={this.props.movie.title} onChange={this.handleChange} />   
                     </div>
                 </div>   
 
                 <div className="field is-horizontal">
                     <div className="field-label is-normal">
-                        <label className="label" htmlFor={"tagline-" + movie.id}>Tagline</label>
+                        <label className="label">Tagline</label>
                     </div>
                     <div className="field-body">
-                        <textarea className="textarea" rows="2" name="tagline" id={"tagline-" + movie.id}
-                            value={movie.tagline} onChange={this.handleChange}></textarea>
+                        <textarea className="textarea" rows="2"  name="tagline"
+                            value={this.props.movie.tagline} onChange={this.handleChange}></textarea>
                     </div>
                 </div>                  
 
                 <div className="field is-horizontal">
                     <div className="field-label is-normal">
-                        <label className="label" htmlFor={"runtime-" + movie.id}>Runtime</label>
+                        <label className="label">Runtime</label>
                     </div>
                     <div className="field-body">
-                        <input className="input" type="number" min="0" name="runtime" id={"runtime-" + movie.id}
-                            value={movie.runtime} onChange={this.handleChange} />
+                        <input className="input" type="text" name="runtime"
+                            value={this.props.movie.runtime} onChange={this.handleChange}/>   
                     </div>
                 </div>    
                                                   
@@ -171,9 +169,9 @@ render() {
 const MovieLink = props => {
   return (
         <a className="button card-footer-item" 
-            href={"https://www.themoviedb.org/movie/" + props.tmdbID} >
+            href={ "https://www.themoviedb.org/movie/" + props.tmdbID } >
 
-                <img src="images/tmdb.svg" width="30" alt="View on TMDB" />
+                <img src="images/tmdb.svg" width="30" />
         </a>    
     );
 };
